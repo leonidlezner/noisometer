@@ -2,7 +2,7 @@
 
 #include "noisometer.h"
 
-#define DISPLAY_NEOPIXEL
+//#define DISPLAY_NEOPIXEL
 
 #ifdef DISPLAY_NEOPIXEL
 #define PIN            7
@@ -109,7 +109,9 @@ void displayState(NOISOMETER_STATE *state) {
   
   pixels.show();
 
-  Serial.println(state->soundLevel);
+  Serial.print(state->soundLevel);
+  Serial.print(" - ");
+  Serial.println(state->level);
 }
 
 #else
