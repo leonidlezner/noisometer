@@ -4,10 +4,10 @@
 
 #define SAMPLE_TIME       150   // ms
 #define SAMPLE_WINDOW     50    // ms
-#define PIN_AUDIO_IN      A0
-#define PIN_LIGHT_RED     5
-#define PIN_LIGHT_YELLOW  6
-#define PIN_LIGHT_GREEN   9
+#define PIN_AUDIO_IN      A2
+#define PIN_LIGHT_RED     4
+#define PIN_LIGHT_YELLOW  3
+#define PIN_LIGHT_GREEN   2
 
 
 

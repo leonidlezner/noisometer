@@ -49,6 +49,10 @@ void setup() {
 
 #ifdef DISPLAY_NEOPIXEL
   pixels.begin();
+#else
+  pinMode(PIN_LIGHT_RED, OUTPUT);
+  pinMode(PIN_LIGHT_YELLOW, OUTPUT);
+  pinMode(PIN_LIGHT_GREEN, OUTPUT);
 #endif
   
   gState.level = NM_LEVEL_GOOD;
@@ -58,10 +62,10 @@ void setup() {
   gState.thresholds.good_notice_time = TIME_S(3);
   gState.thresholds.good_warning_time = TIME_S(2);
 
-  gState.thresholds.notice_good = 10;
+  gState.thresholds.notice_good = 12;
   gState.thresholds.notice_good_time = TIME_S(5);
 
-  gState.thresholds.notice_warning = 30;
+  gState.thresholds.notice_warning = 25;
   gState.thresholds.notice_warning_time = TIME_S(4);
 
   gState.thresholds.warning_notice = 20;
@@ -122,31 +126,41 @@ void displayState(NOISOMETER_STATE *state) {
   
   switch (state->level) {
     case NM_LEVEL_GOOD:
-      
+      digitalWrite(PIN_LIGHT_GREEN, LOW);
+      digitalWrite(PIN_LIGHT_YELLOW, HIGH);
+      digitalWrite(PIN_LIGHT_RED, HIGH);
       break;
 
     case NM_LEVEL_NOTICE:
-      
+      digitalWrite(PIN_LIGHT_GREEN, HIGH);
+      digitalWrite(PIN_LIGHT_YELLOW, LOW);
+      digitalWrite(PIN_LIGHT_RED, HIGH);
       break;
 
     case NM_LEVEL_WARNING:
-      
+      digitalWrite(PIN_LIGHT_GREEN, HIGH);
+      digitalWrite(PIN_LIGHT_YELLOW, HIGH);
+      digitalWrite(PIN_LIGHT_RED, LOW);
       break;
 
     case NM_LEVEL_CRITICAL:
       if(blinkCounter == 0) {
-        
-        
+        digitalWrite(PIN_LIGHT_GREEN, HIGH);
+        digitalWrite(PIN_LIGHT_YELLOW, HIGH);
+        digitalWrite(PIN_LIGHT_RED, LOW);
         blinkState = !blinkState;
         blinkCounter = 2;
       } else {
         blinkCounter -= 1;
+        digitalWrite(PIN_LIGHT_GREEN, HIGH);
+        digitalWrite(PIN_LIGHT_YELLOW, LOW);
+        digitalWrite(PIN_LIGHT_RED, HIGH);
       }
       
       break;
   }
 
-  Serial.println(state->soundLevel);
+  Serial.print(state->soundLevel);
 }
 
 #endif
